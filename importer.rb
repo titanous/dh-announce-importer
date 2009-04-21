@@ -18,6 +18,9 @@ end
 
 post '/upload' do
   @file = params[:file][:tempfile]
+  puts @file.path
+  sleep 10
+  return '1'
 end
 
 # css
