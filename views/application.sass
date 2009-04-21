@@ -22,11 +22,14 @@ input.text
   :padding .25em .1em .25em .1em
   :color #3B3B3B
 
+select
+  :margin-bottom .3em
+
 input.submit
   :margin-top .75em
 
 fieldset
-  :margin-left .5em
+  :padding-left .5em
 
 #content
   :margin-left 3em
@@ -43,6 +46,10 @@ fieldset
 #step1 
   :margin-bottom 2em
   label, input.submit
+    :font-size 90%
+
+#step2
+  input.submit
     :font-size 90%
 
 #step3
@@ -80,3 +87,13 @@ fieldset
 
 .fileUploadProgressBar
   :background-color #4F6D4F
+  
+#step4
+  label.select
+    :display block
+    :float left
+    :text-align right
+    :width 5.5em
+    :margin-right .25em
+  select, option
+    :font-size 90%

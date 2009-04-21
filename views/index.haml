@@ -17,35 +17,48 @@
         %h2 Step 1
         %p.description Enter your Dreamhost credentials.
         %fieldset
-          %label.auth Dreamhost Login:
+          %label{ :for => 'email' } Dreamhost Login:
           %br
-          %input.text{ :type => 'text', :name => 'email' }
+          %input.text{ :type => 'text', :name => 'email', :id => 'email' }
           %br
-          %label.auth API Key:
+          %label{ :for => 'api-key' } API Key:
           %br
-          %input.text{ :type => 'text', :name => 'api-key' }
+          %input.text{ :type => 'text', :name => 'api-key', :id => 'api-key' }
           %br
-          %input.submit{ :type => 'submit', :value => 'Authenticate!', :name => 'authenticate' }
+          %input.submit{ :type => 'submit', :value => 'Authenticate!', :name => 'authenticate', :id => 'authenticate' }
       
       #step2.step
         %h2 Step 2
-        %p.description Pick the announcement list to import to.
+        %p.description Enter the announcement list to import to.
         %fieldset
-          %select{ :name => 'list' }
-            %option{ :value => 'list1' } List 1
-            %option{ :value => 'list2' } List 2
-            %option{ :value => 'list3' } List 3
+          %input.text{ :type => 'text', :name => 'alist', :id => 'alist' }
+          %input.submit{ :type => 'submit', :value => 'Check', :name => 'check-list', :id => 'check-list' }
       
       #step3.step
         %h2 Step 3
         %p.description Upload a list to import.
-        %input.submit{ :type => 'submit', :value => 'Upload!', :name => 'upload' }
+        %input.submit{ :type => 'submit', :value => 'Upload!', :name => 'upload', :id => 'upload' }
         #uploader
       
       #step4.step
         %h2 Step 4
         %p.description Configure the import.
+        %fieldset
+          %label.select{ :for => 'email-field' } Email field:
+          %select{ :name => 'email-field', :id => 'email-field' }
+            %option{ :value => '1' } Name
+            %option{ :value => '2', :selected => true } Email
+            %option{ :value => '3' } Birthdate
+          %label email@example.com
+          %br
+          %label.select{ :for => 'name-field' } Name field:
+          %select{ :name => 'name-field', :id => 'name-field' }
+            %option{ :value => 'none' } None
+            %option{ :value => '1', :selected => true } Name
+            %option{ :value => '2' } Email
+            %option{ :value => '3' } Birthdate
+          %label Johnny Appleseed
       
       #step5.step
         %h2 Step 5
-        %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import' }
+        %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import', :id => 'import' }
