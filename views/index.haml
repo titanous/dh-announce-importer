@@ -8,17 +8,33 @@
   %body
     %h1.title Welcome to the Dreamhost Announcement List Importer!
     #content
-      %h2 Step 1
-      %p.description Enter your Dreamhost credentials.
+    
+      #step1.step
+        %h2 Step 1
+        %p.description Enter your Dreamhost credentials.
+        %fieldset
+          %label.auth Dreamhost Login:
+          %br
+          %input.text{ :type => 'text', :name => 'email' }
+          %br
+          %label.auth API Key:
+          %br
+          %input.text{ :type => 'text', :name => 'api-key' }
+          %br
+          %input.submit{ :type => 'submit', :value => 'Authenticate!', :name => 'authenticate' }
       
-      %h2 Step 2
-      %p.description Pick an announcement list to import to.
+      #step2.step
+        %h2 Step 2
+        %p.description Pick an announcement list to import to.
       
-      %h2 Step 3
-      %p.description Upload a list to import.
+      #step3.step
+        %h2 Step 3
+        %p.description Upload a list to import.
       
-      %h2 Step 4
-      %p.description Configure the import.
+      #step4.step
+        %h2 Step 4
+        %p.description Configure the import.
       
-      %h2 Step 5
-      %p.description Import!
+      #step5.step
+        %h2 Step 5
+        %p.description Import!
