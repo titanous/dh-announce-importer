@@ -25,7 +25,12 @@
       
       #step2.step
         %h2 Step 2
-        %p.description Pick an announcement list to import to.
+        %p.description Pick the announcement list to import to.
+        %fieldset
+          %select{ :name => 'list' }
+            %option{ :value => 'list1' } List 1
+            %option{ :value => 'list2' } List 2
+            %option{ :value => 'list3' } List 3
       
       #step3.step
         %h2 Step 3
@@ -34,7 +39,9 @@
       #step4.step
         %h2 Step 4
         %p.description Configure the import.
+        %br
       
       #step5.step
         %h2 Step 5
-        %p.description Import!
+        %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import' }
+        %br
