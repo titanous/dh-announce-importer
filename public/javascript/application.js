@@ -8,7 +8,7 @@ $(document).ready(function() {
                'width': 75,
                'displayData': 'percentage',
                'fileDesc': 'CSV files (*.csv);TSV files (*.tsv);Excel spreadsheets (*.xls,*.xlsx);OpenDocument spreadsheets (*.ods)',
-               'fileExt': '*.csv;*.tsv;*.txt;*.xls;*.xlsx;*.ods',
+               'fileExt': '*.csv;*.tsv;*.xls;*.xlsx;*.ods',
                'fileDataName': 'file',
                'auto': true
        });

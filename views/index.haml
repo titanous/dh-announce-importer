@@ -40,12 +40,6 @@
         %h2 Step 3
         %p.description Upload a list to import.
         %input.submit{ :type => 'submit', :value => 'Upload!', :name => 'upload' }
-        %select{ :name => 'filetype' }
-          %option{ :value => 'csv' } Comma-separated values (.csv)
-          %option{ :value => 'tsv' } Tab-separated values (.tsv)
-          %option{ :value => 'xls' } Excel Spreadsheet (.xls)
-          %option{ :value => 'xlsx' } XML Excel Spreadsheet (.xlsx)
-          %option{ :value => 'xls' } OpenDocument Spreadsheet (.ods)
         #uploader
       
       #step4.step
