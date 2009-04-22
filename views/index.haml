@@ -27,7 +27,7 @@
             %br
             %input.text.required{ :type => 'text', :name => 'apiKey', :id => 'apiKey' }
             %br
-            %input.submit{ :type => 'submit', :value => 'Authenticate!', :name => 'authenticate', :id => 'authenticate' }
+            %input.submit{ :type => 'submit', :value => 'Authenticate', :name => 'authenticate', :id => 'authenticate' }
             %img.loading{ :src => 'images/loading.gif', :alt => '' }
             %br
             .error
@@ -38,7 +38,9 @@
         %fieldset
           %select{ :name => 'domainList', :id => 'domainList', :disabled => true }
             %option{ :value => 'domain' } Domain
+          %br
           %input.text{ :type => 'text', :name => 'alist', :id => 'alist', :disabled => true }
+          %br
           %input.submit{ :type => 'submit', :value => 'Check', :name => 'check-list', :id => 'check-list', :disabled => true }
           %img.loading{ :src => 'images/loading.gif', :alt => '' }
           %br
@@ -47,7 +49,7 @@
       #step3.step
         %h2 Step 3
         %p.description Upload a list to import.
-        %input.submit{ :type => 'submit', :value => 'Upload!', :name => 'upload', :id => 'upload', :disabled => true }
+        %input.submit{ :type => 'submit', :value => 'Upload', :name => 'upload', :id => 'upload', :disabled => true }
         #uploader
       
       #step4.step
