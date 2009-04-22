@@ -19,8 +19,9 @@ label
 input.text
   :margin-bottom .25em
   :border 1px solid #9C9C9C
-  :padding .25em .1em .25em .1em
+  :padding .25em .1em .1em .1em
   :color #3B3B3B
+  :width 11.5em
 
 select
   :margin-bottom .3em
@@ -43,10 +44,24 @@ fieldset
   :font-weight bold
   :color #635046
 
+.loading
+  :display none
+
 #step1 
-  :margin-bottom 2em
+  :margin-bottom 1.5em
   label, input.submit
     :font-size 90%
+
+.error
+  :color #6D4F4F
+
+label.error
+  :margin-left .25em
+
+div.error
+  :margin-top .25em
+  :font-size 90%
+  
 
 #step2
   input.submit

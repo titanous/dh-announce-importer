@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'json'
 
 # File importers
 require 'roo'
@@ -23,8 +24,23 @@ post '/upload' do
   return '1'
 end
 
+post '/authenticate' do
+  domains = []
+  
+  @dh_account = Dreamy::Base.new(params[:login], params[:api_key])
+  
+  begin
+    @dh_account.domains.each { |domain| domains << domain.domain }
+  rescue Dreamy::ApiError
+    return 'LOGINERROR'
+  end
+  
+  content_type 'application/json', :charset => 'utf-8'
+  return JSON.generate(domains)
+end
+
 # css
-get '/css/application.css' do
+get '/stylesheets/application.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :application
 end

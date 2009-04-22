@@ -3,11 +3,12 @@
   %head
     %title Dreamhost Announcement List Importer
     %meta{ :content => 'text/html; charset=utf-8', 'http-equiv' => 'content-type' }
-    %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'css/yui-reset-base.css', :charset => 'utf-8' }
-    %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'css/application.css', :charset => 'utf-8' }
-    %script{ :type => 'text/javascript', :src => 'javascript/jquery-1.3.2.js', :charset => 'utf-8' }
-    %script{ :type => 'text/javascript', :src => 'javascript/jquery.uploadify.js', :charset => 'utf-8' }
-    %script{ :type => 'text/javascript', :src => 'javascript/application.js', :charset => 'utf-8' }
+    %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'stylesheets/yui-reset-base.css', :charset => 'utf-8' }
+    %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'stylesheets/application.css', :charset => 'utf-8' }
+    %script{ :type => 'text/javascript', :src => 'javascripts/jquery-1.3.2.js', :charset => 'utf-8' }
+    %script{ :type => 'text/javascript', :src => 'javascripts/jquery.uploadify.js', :charset => 'utf-8' }
+    %script{ :type => 'text/javascript', :src => 'javascripts/jquery.validate.js', :charset => 'utf-8' }
+    %script{ :type => 'text/javascript', :src => 'javascripts/application.js', :charset => 'utf-8' }
     
   %body
     %h1.title Welcome to the Dreamhost Announcement List Importer!
@@ -16,16 +17,20 @@
       #step1.step.active
         %h2 Step 1
         %p.description Enter your Dreamhost credentials.
-        %fieldset
-          %label{ :for => 'email' } Dreamhost Login:
-          %br
-          %input.text{ :type => 'text', :name => 'email', :id => 'email' }
-          %br
-          %label{ :for => 'api-key' } API Key:
-          %br
-          %input.text{ :type => 'text', :name => 'api-key', :id => 'api-key' }
-          %br
-          %input.submit{ :type => 'submit', :value => 'Authenticate!', :name => 'authenticate', :id => 'authenticate' }
+        %form{ :id => 'authForm' }
+          %fieldset
+            %label{ :for => 'email' } Dreamhost Login:
+            %br
+            %input.text.email.required{ :type => 'text', :name => 'login', :id => 'login' }
+            %br
+            %label{ :for => 'apiKey' } API Key:
+            %br
+            %input.text.required{ :type => 'text', :name => 'apiKey', :id => 'apiKey' }
+            %br
+            %input.submit{ :type => 'submit', :value => 'Authenticate!', :name => 'authenticate', :id => 'authenticate' }
+            %img.loading{ :src => 'images/loading.gif', :alt => '' }
+            %br
+            .error
       
       #step2.step
         %h2 Step 2
