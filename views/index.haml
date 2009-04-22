@@ -36,13 +36,13 @@
         %h2 Step 2
         %p.description Enter the announcement list to import to.
         %fieldset
-          %input.text{ :type => 'text', :name => 'alist', :id => 'alist' }
-          %input.submit{ :type => 'submit', :value => 'Check', :name => 'check-list', :id => 'check-list' }
+          %input.text{ :type => 'text', :name => 'alist', :id => 'alist', :disabled => true }
+          %input.submit{ :type => 'submit', :value => 'Check', :name => 'check-list', :id => 'check-list', :disabled => true }
       
       #step3.step
         %h2 Step 3
         %p.description Upload a list to import.
-        %input.submit{ :type => 'submit', :value => 'Upload!', :name => 'upload', :id => 'upload' }
+        %input.submit{ :type => 'submit', :value => 'Upload!', :name => 'upload', :id => 'upload', :disabled => true }
         #uploader
       
       #step4.step
@@ -50,14 +50,14 @@
         %p.description Configure the import.
         %fieldset
           %label.select{ :for => 'email-field' } Email field:
-          %select{ :name => 'email-field', :id => 'email-field' }
+          %select{ :name => 'email-field', :id => 'email-field', :disabled => true }
             %option{ :value => '1' } Name
             %option{ :value => '2', :selected => true } Email
             %option{ :value => '3' } Birthdate
           %label email@example.com
           %br
           %label.select{ :for => 'name-field' } Name field:
-          %select{ :name => 'name-field', :id => 'name-field' }
+          %select{ :name => 'name-field', :id => 'name-field', :disabled => true }
             %option{ :value => 'none' } None
             %option{ :value => '1', :selected => true } Name
             %option{ :value => '2' } Email
@@ -66,4 +66,4 @@
       
       #step5.step
         %h2 Step 5
-        %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import', :id => 'import' }
+        %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import', :id => 'import', :disabled => true }
