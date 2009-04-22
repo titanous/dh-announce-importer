@@ -59,6 +59,18 @@ function authenticate(event) {
     }
 }
 
+function addDomains() {
+    $('#domainList').empty();
+    for (key in domains)
+        $('#domainList').append('<option value="' + domains[key] + '">' + domains[key] + '</option>');
+}
+
 function nextStep() {
-    
+    switch (step) {
+        case 1:
+            $('#step1 input').attr('disabled', true);
+            addDomains();
+            $('#step2 input, #step2 select').removeAttr('disabled');
+            break;
+    }
 }
