@@ -121,6 +121,8 @@ function addUploader() {
         onComplete: uploadComplete,
         onError: function() {
             $('#step3 .error').text('An error ocurred. Please try again later.').hide().slideDown();
+            $('#uploader').fileUploadClearQueue();
+            return false;
         },
         onSelect: function() {
             $('#step3 .error').slideUp();
