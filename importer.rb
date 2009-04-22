@@ -17,26 +17,42 @@ get '/' do
   haml :index
 end
 
-post '/upload' do
-  @file = params[:file][:tempfile]
-  puts @file.path
-  sleep 10
-  return '1'
-end
-
 post '/authenticate' do
   domains = []
   
-  @dh_account = Dreamy::Base.new(params[:login], params[:api_key])
+  dh_account = Dreamy::Base.new(params[:login], params[:api_key])
   
   begin
-    @dh_account.domains.each { |domain| domains << domain.domain }
+    dh_account.domains.each { |domain| domains << domain.domain }
   rescue Dreamy::ApiError
     return 'LOGINERROR'
   end
   
+  session[:dh_account] = dh_account
+  
   content_type 'application/json', :charset => 'utf-8'
   return JSON.generate(domains)
+end
+
+post '/check_list' do
+  session[:subscriber_list] = []
+  dh_account = session[:dh_account]
+  
+  content_type 'text/plain', :charset => 'utf-8'
+  
+  begin
+    dh_account.announce_list(params[:list], params[:domain]).each { |subscriber| session[:subscriber_list] << subscriber.email }
+  rescue Dreamy::ApiError
+    return 'LISTERROR'
+  end
+  
+  return 'VALID'
+end
+
+post '/upload' do
+  file = params[:file][:tempfile]
+
+  return '1'
 end
 
 # css

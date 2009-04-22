@@ -35,16 +35,17 @@
       #step2.step
         %h2 Step 2
         %p.description Enter the announcement list to import to.
-        %fieldset
-          %select{ :name => 'domainList', :id => 'domainList', :disabled => true }
-            %option{ :value => 'domain' } Domain
-          %br
-          %input.text{ :type => 'text', :name => 'alist', :id => 'alist', :disabled => true }
-          %br
-          %input.submit{ :type => 'submit', :value => 'Check', :name => 'check-list', :id => 'check-list', :disabled => true }
-          %img.loading{ :src => 'images/loading.gif', :alt => '' }
-          %br
-          .error
+        %form{ :id => 'listForm' }
+          %fieldset
+            %input.text{ :type => 'text', :name => 'list', :id => 'list', :disabled => true }
+            %label @
+            %select{ :name => 'domainList', :id => 'domainList', :disabled => true }
+              %option{ :value => 'domain' } Domain
+            %br
+            %input.submit{ :type => 'submit', :value => 'Check', :name => 'checkList', :id => 'checkList', :disabled => true }
+            %img.loading{ :src => 'images/loading.gif', :alt => '' }
+            %br
+            .error
       
       #step3.step
         %h2 Step 3
