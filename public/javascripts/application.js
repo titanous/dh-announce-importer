@@ -6,7 +6,27 @@ var step = 1;
 $(document).ready(function() {
    $('#authForm').validate();
    $('#authForm').submit(authenticate);
+   
+   $('#login').val($.cookie('dh_login'));
+   $('#apiKey').val($.cookie('dh_key'));
 });
+
+function nextStep() {
+    switch (step) {
+        case 1:
+        $('#step1 input').attr('disabled', true);
+        addDomains();
+        $('#step2 input, #step2 select').removeAttr('disabled');
+        $('#listForm').submit(checkList);
+        break;
+        
+        case 2:
+        $('#step2 input, #step2 select').attr('disabled', true);
+        $('#step3 input').removeAttr('disabled');
+        addUploader();
+        break;
+    }
+}
 
 function authenticate(event) {
     event.preventDefault();
@@ -25,6 +45,10 @@ function authenticate(event) {
            data: ({ login: login, api_key: apiKey }),
            success: function(data) {
                $('#step1 .loading').fadeOut();
+               
+               $.cookie('dh_login', $('#login').val(), { expires: 7 });
+               $.cookie('dh_key', $('#apiKey').val(), { expires: 7 });
+               
                domains = data;
                nextStep();
            },
@@ -90,26 +114,32 @@ function addUploader() {
         buttonImg: ' ',
         width: 75,
         displayData: 'percentage',
-        fileDesc: 'CSV files (*.csv);TSV files (*.tsv);Excel spreadsheets (*.xls,*.xlsx);OpenDocument spreadsheets (*.ods)',
+        fileDesc: 'CSV file (*.csv);TSV file (*.tsv);Excel Workbook (*.xls,*.xlsx);ODF Spreadsheet (*.ods)',
         fileExt: '*.csv;*.tsv;*.xls;*.xlsx;*.ods',
         fileDataName: 'file',
-        auto: true
+        auto: true,
+        onComplete: uploadComplete,
+        onError: function() {
+            $('#step3 .error').text('An error ocurred. Please try again later.').hide().slideDown();
+        },
+        onSelect: function() {
+            $('#step3 .error').slideUp();
+        }
     });
 }
 
-function nextStep() {
-    switch (step) {
-        case 1:
-        $('#step1 input').attr('disabled', true);
-        addDomains();
-        $('#step2 input, #step2 select').removeAttr('disabled');
-        $('#listForm').submit(checkList);
-        break;
-        
-        case 2:
-        $('#step2 input, #step2 select').attr('disabled', true);
-        $('#step3 input').removeAttr('disabled');
-        addUploader();
-        break;
+function uploadComplete(event, queueID, fileObj, data) {
+    console.log(data);
+    try {
+        data = eval("(" + data + ")");
+        step = 3;
+        nextStep();
+    } catch(e) { // got NOEMAIL or BADFILE
+        if (data == 'NOEMAIL') {
+            $('#step3 .error').text('There were no valid email addresses in the file.').hide().slideDown();
+        } else { // BADFILE
+            $('#step3 .error').text('There was an error with the file. Please try again with a different file.').
+              hide().slideDown();
+        }
     }
 }

@@ -6,6 +6,7 @@
     %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'stylesheets/yui-reset-base.css', :charset => 'utf-8' }
     %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'stylesheets/application.css', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/jquery-1.3.2.js', :charset => 'utf-8' }
+    %script{ :type => 'text/javascript', :src => 'javascripts/jquery.cookie.js', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/jquery.uploadify.js', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/jquery.validate.js', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/application.js', :charset => 'utf-8' }
@@ -40,7 +41,7 @@
             %input.text{ :type => 'text', :name => 'list', :id => 'list', :disabled => true }
             %label @
             %select{ :name => 'domainList', :id => 'domainList', :disabled => true }
-              %option{ :value => 'domain' } Domain
+              %option Domain
             %br
             %input.submit{ :type => 'submit', :value => 'Check', :name => 'checkList', :id => 'checkList', :disabled => true }
             %img.loading{ :src => 'images/loading.gif', :alt => '' }
@@ -52,26 +53,23 @@
         %p.description Upload a list to import.
         %input.submit{ :type => 'submit', :value => 'Upload', :name => 'upload', :id => 'upload', :disabled => true }
         #uploader
+        .error
       
       #step4.step
         %h2 Step 4
         %p.description Configure the import.
         %fieldset
-          %label.select{ :for => 'email-field' } Email field:
-          %select{ :name => 'email-field', :id => 'email-field', :disabled => true }
-            %option{ :value => '1' } Name
-            %option{ :value => '2', :selected => true } Email
-            %option{ :value => '3' } Birthdate
-          %label email@example.com
+          %label.select{ :for => 'emailColumn' } Email column:
+          %select{ :name => 'emailColumn', :id => 'emailField', :disabled => true }
+            %option Email
+          %label
           %br
-          %label.select{ :for => 'name-field' } Name field:
-          %select{ :name => 'name-field', :id => 'name-field', :disabled => true }
-            %option{ :value => 'none' } None
-            %option{ :value => '1', :selected => true } Name
-            %option{ :value => '2' } Email
-            %option{ :value => '3' } Birthdate
-          %label Johnny Appleseed
-      
+          %label.select{ :for => 'nameColumn' } Name column:
+          %select{ :name => 'nameColumn', :id => 'nameColumn', :disabled => true }
+            %option Name
+          %label
+          .error
+          
       #step5.step
         %h2 Step 5
         %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import', :id => 'import', :disabled => true }
