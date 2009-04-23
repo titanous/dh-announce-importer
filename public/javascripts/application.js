@@ -30,7 +30,7 @@ function nextStep() {
         case 3:
         $('#uploaderUploader, #uploaderQueue').remove();
         $('#step3 input').attr('disabled', true);
-        $('#step4 select').removeAttr('disabled');
+        $('#step4 select, #step5 input').removeAttr('disabled');
         $('#step4 label').css('opacity', 1);
         break;
     }
