@@ -99,6 +99,10 @@ post '/upload' do
   end
 end
 
+post '/import' do
+  
+end
+
 # css
 get '/stylesheets/application.css' do
   content_type 'text/css', :charset => 'utf-8'

@@ -9,6 +9,7 @@
     %script{ :type => 'text/javascript', :src => 'javascripts/jquery.cookie.js', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/jquery.uploadify.js', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/jquery.validate.js', :charset => 'utf-8' }
+    %script{ :type => 'text/javascript', :src => 'javascripts/jquery.progressbar.js', :charset => 'utf-8' }
     %script{ :type => 'text/javascript', :src => 'javascripts/application.js', :charset => 'utf-8' }
     
   %body
@@ -36,7 +37,7 @@
       #step2.step
         %h2 Step 2
         %p.description Enter the announcement list to import to.
-        %form{ :id => 'listForm' }
+        %form{ :id => 'listForm' }%script{ :type => 'text/javascript', :src => 'javascripts/jquery.validate.js', :charset => 'utf-8' }
           %fieldset
             %input.text{ :type => 'text', :name => 'list', :id => 'list', :disabled => true }
             %label @
@@ -74,3 +75,6 @@
         %h2 Step 5
         %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import', :id => 'import', :disabled => true }
         .status
+          .error
+          .progress
+          .detail

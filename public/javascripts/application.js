@@ -203,9 +203,28 @@ function importSpreadsheet() {
     
     if ((spreadsheetData['header'] && $('#emailColumn').next('label').text().match(emailRegex)) ||
       $('#emailColumn').children('[selected]').text().match(emailRegex)) {
-        
+        $('#step5 .progress').progressBar({ barImage: 'images/progressbg_black.gif' });
+        $.ajax({
+            type: 'POST',
+            url: 'import',
+            dataType: 'text',
+            data: ({ email_column: $('#emailColumn').val(), name_column: $('#nameColumn').val() }),
+            success: function(data) {
+                $('#step5 .submit').attr('disabled', true);
+            },
+            error: function() {
+                $('#step5 .progress').fadeOut();
+                $('#step5 .progress').empty().show();
+                $('#step5 .submit').removeAttr('disabled');
+                $('#step5 .error').text('An error ocurred. Please try again later.').hide().slideDown();
+            }
+        });
     } else {
         $('#step4 .error').text('Invalid email column selected. Please select a column with a valid email address').
           hide().slideDown();
     }
+}
+
+function updateProgress() {
+
 }
