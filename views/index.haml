@@ -62,14 +62,15 @@
           %label.select{ :for => 'emailColumn' } Email column:
           %select{ :name => 'emailColumn', :id => 'emailColumn', :disabled => true }
             %option Email
-          %label
+          %label#emailColumnLabel
           %br
           %label.select{ :for => 'nameColumn' } Name column:
           %select{ :name => 'nameColumn', :id => 'nameColumn', :disabled => true }
             %option Name
-          %label
+          %label#nameColumnLabel
           .error
           
       #step5.step
         %h2 Step 5
         %input.submit{ :type => 'submit', :value => 'Import!', :name => 'import', :id => 'import', :disabled => true }
+        .status

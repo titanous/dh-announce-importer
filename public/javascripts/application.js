@@ -1,7 +1,7 @@
 var login;
 var apiKey;
 var domains;
-
+var spreadsheetData;
 var step = 1;
 
 $(document).ready(function() {
@@ -32,6 +32,8 @@ function nextStep() {
         $('#step3 input').attr('disabled', true);
         $('#step4 select, #step5 input').removeAttr('disabled');
         $('#step4 label').css('opacity', 1);
+        setupColumns();
+        $('#step5 .submit').click(import);
         break;
     }
 }
@@ -141,13 +143,13 @@ function addUploader() {
         }
     });
     
-    setTimeout('$("a[title*=\'Adblock Plus\']").remove()', 200); //remove Adblock Plus tab
+    setTimeout('$("a[title*=\'Adblock Plus\']").remove()', 300); //remove Adblock Plus tab
 }
 
 function uploadComplete(event, queueID, fileObj, data) {
     console.log(data);
     try {
-        data = eval("(" + data + ")");
+        spreadsheetData = eval("(" + data + ")");
     } catch(e) { // got NOEMAIL or BADFILE
         if (data == 'NOEMAIL') {
             $('#step3 .error').text('There were no valid email addresses in the file.').hide().slideDown();
@@ -160,4 +162,49 @@ function uploadComplete(event, queueID, fileObj, data) {
     
     step = 3;
     nextStep();
+}
+
+function setupColumns() {
+    $('#emailColumn').empty();
+    $('#nameColumn').empty();
+    if (spreadsheetData['header']) {
+        for (key in spreadsheetData['header']) {
+            $('#emailColumn').append('<option value="' + key + '">' + spreadsheetData['header'][key] + '</option>');
+        }
+        $('#emailColumn option[value=' + spreadsheetData['email_column'] + ']').attr('selected', true);
+        $('#emailColumnLabel').text(spreadsheetData['row'][$('#emailColumn').val()]);
+        
+        for (key in spreadsheetData['header']) {
+            $('#nameColumn').append('<option value="' + key + '">' + spreadsheetData['header'][key] + '</option>');
+        }
+        $('#nameColumn option[value=' + spreadsheetData['name_column'] + ']').attr('selected', true);
+        $('#nameColumnLabel').text(spreadsheetData['row'][$('#nameColumn').val()]);
+        
+        $('#step4 select').change(function() {
+            $('#step4 .error').slideUp();
+            $(this).next('label').text(spreadsheetData['row'][$(this).val()]);
+        });
+    } else { // no headers
+        for (key in spreadsheetData['row']) {
+            $('#emailColumn').append('<option value="' + key + '">' + spreadsheetData['row'][key] + '</option>');
+        }
+        $('#emailColumn option[value=' + spreadsheetData['email_column'] + ']').attr('selected', true);
+        
+        for (key in spreadsheetData['row']) {
+            $('#nameColumn').append('<option value="' + key + '">' + spreadsheetData['row'][key] + '</option>');
+        }
+        $('#nameColumn option[value=' + spreadsheetData['name_column'] + ']').attr('selected', true);
+    }
+}
+
+function import() {
+    emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+    
+    if ((spreadsheetData['header'] && $('#emailColumn').next('label').text().match(emailRegex)) ||
+      $('#emailColumn').children('[selected]').text().match(emailRegex)) {
+        
+    } else {
+        $('#step4 .error').text('Invalid email column selected. Please select a column with a valid email address').
+          hide().slideDown();
+    }
 }

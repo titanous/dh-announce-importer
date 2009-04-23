@@ -84,12 +84,13 @@ post '/upload' do
   FileUtils.rm file
   
   content_type 'application/json', :charset => 'utf-8'
-  if !rows.first.grep(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).blank? # no header
-    email_column = rows.first.index(rows.first.grep(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).first)
+  email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  if !rows.first.grep(email_regex).blank? # no header
+    email_column = rows.first.index(rows.first.grep(email_regex).first)
     name_column = email_column == 1 ? 0 : email_column + 1
     return JSON.generate :row => rows.first, :email_column => email_column, :name_column => name_column
-  elsif !rows[1].grep(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).blank? # header
-    email_column = rows[1].index(rows[1].grep(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).first)
+  elsif !rows[1].grep(email_regex).blank? # header
+    email_column = rows[1].index(rows[1].grep(email_regex).first)
     name_column = email_column == 1 ? 0 : email_column + 1
     return JSON.generate :header => rows.first, :row => rows[1], :email_column => email_column, :name_column => name_column
   else
