@@ -105,6 +105,7 @@ function checkList(event) {
                if (data == 'VALID') {
                    nextStep();
                } else {
+                   $('#step2 .submit').removeAttr('disabled');
                    $('#step2 .error').
                     text('A lookup error occurred. Please check the list name and API permissions.')
                     .hide().slideDown();
