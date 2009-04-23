@@ -33,7 +33,7 @@ function nextStep() {
         $('#step4 select, #step5 input').removeAttr('disabled');
         $('#step4 label').css('opacity', 1);
         setupColumns();
-        $('#step5 .submit').click(import);
+        $('#step5 .submit').click(importSpreadsheet);
         break;
     }
 }
@@ -129,7 +129,7 @@ function addUploader() {
         buttonImg: ' ',
         width: 75,
         displayData: 'percentage',
-        fileDesc: 'CSV file (*.csv);TSV file (*.tsv);Excel Workbook (*.xls,*.xlsx);ODF Spreadsheet (*.ods)',
+        fileDesc: 'CSV files (*.csv); TSV files (*.tsv); Excel Workbooks (*.xls,*.xlsx); ODF Spreadsheets (*.ods)',
         fileExt: '*.csv;*.tsv;*.xls;*.xlsx;*.ods',
         fileDataName: 'file',
         auto: true,
@@ -198,8 +198,8 @@ function setupColumns() {
     }
 }
 
-function import() {
-    emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+function importSpreadsheet() {
+    emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     
     if ((spreadsheetData['header'] && $('#emailColumn').next('label').text().match(emailRegex)) ||
       $('#emailColumn').children('[selected]').text().match(emailRegex)) {
