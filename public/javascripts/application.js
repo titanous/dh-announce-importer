@@ -1,6 +1,7 @@
 var login;
 var apiKey;
 var domains;
+
 var step = 1;
 
 $(document).ready(function() {
@@ -25,6 +26,13 @@ function nextStep() {
         $('#step3 input').removeAttr('disabled');
         addUploader();
         break;
+        
+        case 3:
+        $('#uploaderUploader, #uploaderQueue').remove();
+        $('#step3 input').attr('disabled', true);
+        $('#step4 select').removeAttr('disabled');
+        $('#step4 label').css('opacity', 1);
+        break;
     }
 }
 
@@ -37,6 +45,7 @@ function authenticate(event) {
     if ($('#authForm').valid()) {
         $('#step1 .error').slideUp();
         $('#step1 .loading').fadeIn();
+        $('#step1 .submit').attr('disabled', true);
         
         $.ajax({
            type: 'POST',
@@ -54,6 +63,7 @@ function authenticate(event) {
            },
            error: function(request, status) {
                $('#step1 .loading').fadeOut();
+               $('#step1 .submit').removeAttr('disabled');
                var errorText
                
                if (status == 'parsererror') { // got LOGINERROR message
@@ -81,6 +91,7 @@ function checkList(event) {
         step = 2;
         $('#step2 .error').slideUp();
         $('#step2 .loading').fadeIn();
+        $('#step2 .submit').attr('disabled', true);
         
         $.ajax({
            type: 'POST',
@@ -99,6 +110,7 @@ function checkList(event) {
            },
            error: function() {
                $('#step2 .loading').fadeOut();
+               $('#step2 .submit').removeAttr('disabled');
                $('#step2 .error').text('An error ocurred. Please try again later.').hide().slideDown();
            }
         });
@@ -128,14 +140,14 @@ function addUploader() {
             $('#step3 .error').slideUp();
         }
     });
+    
+    setTimeout('$("a[title*=\'Adblock Plus\']").remove()', 200); //remove Adblock Plus tab
 }
 
 function uploadComplete(event, queueID, fileObj, data) {
     console.log(data);
     try {
         data = eval("(" + data + ")");
-        step = 3;
-        nextStep();
     } catch(e) { // got NOEMAIL or BADFILE
         if (data == 'NOEMAIL') {
             $('#step3 .error').text('There were no valid email addresses in the file.').hide().slideDown();
@@ -143,5 +155,9 @@ function uploadComplete(event, queueID, fileObj, data) {
             $('#step3 .error').text('There was an error with the file. Please try again with a different file.').
               hide().slideDown();
         }
+        return;
     }
+    
+    step = 3;
+    nextStep();
 }
