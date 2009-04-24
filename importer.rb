@@ -26,7 +26,7 @@ post '/authenticate' do
   dh_account = Dreamy::Base.new(params[:login], params[:api_key])
   
   begin
-    dh_account.domains.each { |domain| domains << domain.domain }
+    dh_account.domains.each { |d| domains << d.domain if d.type == 'http' }
   rescue Dreamy::ApiError
     halt 'LOGINERROR'
   end
