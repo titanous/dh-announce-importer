@@ -27,8 +27,7 @@ post '/authenticate' do
   begin
     dh_account.domains.each { |domain| domains << domain.domain }
   rescue Dreamy::ApiError
-    content_type 'text/plain', :charset => 'utf-8'
-    return 'LOGINERROR'
+    halt 'LOGINERROR'
   end
   
   session[:dh_account] = dh_account
@@ -46,7 +45,7 @@ post '/check_list' do
   begin
     dh_account.announce_list(params[:list], params[:domain]).each { |subscriber| session[:subscriber_list] << subscriber.email }
   rescue Dreamy::ApiError
-    return 'LISTERROR'
+    halt 'LISTERROR'
   end
   
   return 'VALID'
@@ -76,8 +75,7 @@ post '/upload' do
       (1..spreadsheet.last_row(sheet)).each { |row| rows << spreadsheet.row(row, sheet) }
     end
   rescue Exception
-    content_type 'text/plain', :charset => 'utf-8'
-    return 'BADFILE'
+    halt 'BADFILE'
   end
   
   session[:spreadsheet] = rows
@@ -94,8 +92,7 @@ post '/upload' do
     name_column = email_column == 1 ? 0 : email_column + 1
     return JSON.generate :header => rows.first, :row => rows[1], :email_column => email_column, :name_column => name_column
   else
-    content_type 'text/plain', :charset => 'utf-8'
-    return 'NOEMAIL'
+    halt 'NOEMAIL'
   end
 end
 
